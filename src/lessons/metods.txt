@@ -1,0 +1,86 @@
+**Методи Object, які ми можемо перевизначити:**
+public class Product {
+    private String name;
+    private double price;
+    private String id;
+
+    public Product(String name, double price, String id) {
+        this.name = name;
+        this.price = price;
+        this.id = id;
+    }
+
+    // 1. toString() - текстове представлення об'єкта
+    @Override
+    public String toString() {
+        return "Product{name='" + name + "', price=" + price + ", id='" + id + "'}";
+    }
+
+    // 2. equals() - порівняння об'єктів
+    @Override
+    public boolean equals(Object obj) {
+        // Перевірка на null
+        if (obj == null) return false;
+
+        // Перевірка на той самий об'єкт
+        if (this == obj) return true;
+
+        // Перевірка типу
+        if (!(obj instanceof Product)) return false;
+
+        // Приведення типу
+        Product other = (Product) obj;
+
+        // Порівняння полів
+        return this.id.equals(other.id);
+    }
+
+    // 3. hashCode() - хеш-код об'єкта (потрібен для HashMap, HashSet)
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    // Getters
+    public String getName() { return name; }
+    public double getPrice() { return price; }
+    public String getId() { return id; }
+}
+
+public class ObjectMethodsTest {
+    public static void main(String[] args) {
+        Product p1 = new Product("Ноутбук", 25000, "L001");
+        Product p2 = new Product("Ноутбук", 25000, "L001");
+        Product p3 = new Product("Телефон", 15000, "P001");
+
+        // toString()
+        System.out.println("=== toString() ===");
+        System.out.println(p1); // Автоматично викликається toString()
+        System.out.println(p1.toString());
+
+        // equals()
+        System.out.println("\n=== equals() ===");
+        System.out.println("p1 == p2: " + (p1 == p2)); // false (різні об'єкти)
+        System.out.println("p1.equals(p2): " + p1.equals(p2)); // true (той самий id)
+        System.out.println("p1.equals(p3): " + p1.equals(p3)); // false
+
+        // hashCode()
+        System.out.println("\n=== hashCode() ===");
+        System.out.println("p1.hashCode(): " + p1.hashCode());
+        System.out.println("p2.hashCode(): " + p2.hashCode()); // Той самий!
+        System.out.println("p3.hashCode(): " + p3.hashCode()); // Інший
+
+        // getClass()
+        System.out.println("\n=== getClass() ===");
+        System.out.println("p1.getClass(): " + p1.getClass());
+        System.out.println("Назва класу: " + p1.getClass().getName());
+    }
+}
+
+
+**Контракт equals():**
+1. **Рефлексивність**: `x.equals(x)` має бути true
+2. **Симетричність**: якщо `x.equals(y)` true, то `y.equals(x)` true
+3. **Транзитивність**: якщо `x.equals(y)` і `y.equals(z)`, то `x.equals(z)`
+4. **Консистентність**: повторні виклики дають той самий результат
+5. **null**: `x.equals(null)` має бути false

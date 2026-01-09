@@ -9,6 +9,11 @@ public class Student {
         this.name = name;
     }
 
+    public void displayInfo() {
+        System.out.println("Ім'я: " + name);
+        System.out.println("Середній бал: " + avg());
+    }
+
     public int avg(){
         int sum = 0;
         for (int mark : marks) {

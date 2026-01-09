@@ -1,0 +1,24 @@
+4.6 Downcasting - Перетворення "вниз"
+Аналогія: Повернення специфічності
+Якщо ти знаєш, що "тварина" насправді собака, ти можеш сказати "це собака" і використовувати специфічні для собаки дії.
+
+
+public class DowncastingExample {
+    public static void main(String[] args) {
+        // Upcasting
+        Animal animal = new Dog("Рекс");  // Dog → Animal
+
+        animal.eat();        // ✅ Працює
+        animal.makeSound();  // ✅ Працює
+        // animal.fetch();   // ❌ ПОМИЛКА! Animal не має fetch()
+
+        System.out.println("\n=== DOWNCASTING ===");
+
+        // DOWNCASTING - ЯВНЕ перетворення (потрібні дужки)
+        Dog dog = (Dog) animal;  // Animal → Dog
+
+        dog.eat();        // ✅ Працює
+        dog.makeSound();  // ✅ Працює
+        dog.fetch();      // ✅ Тепер працює!
+
+        System.out.println("\n=== НЕБЕЗПЕЧНИЙ downcasting ===");
